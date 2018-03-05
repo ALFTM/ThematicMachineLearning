@@ -7,7 +7,9 @@
 Start point to enter
 */
 
-int glaDOS() {
-	glaDOSStartTalking(1000);
-	return 0;
+extern "C" {
+	int glaDOS() {
+		glaDOSStartTalking(1000);
+		return 0;
+	}
 }
