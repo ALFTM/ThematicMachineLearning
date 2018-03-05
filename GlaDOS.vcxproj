@@ -116,6 +116,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GlaDOS.cpp" />
+    <ClCompile Include="GlaDOSInteractions.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GlaDOSInteractions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
