@@ -22,18 +22,3 @@ public:
 	
 };
 
-class Coord3d {
-private:
-	double x;
-	double y;
-	double z;
-
-public:
-	Coord3d();
-	Coord3d(double x, double y, double z);
-	double X();
-	double Y();
-	double Z();
-	void setCoord(double x, double y, double z);
-
-};
