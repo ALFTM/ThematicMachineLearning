@@ -4,26 +4,10 @@
 #include <vector>
 #include "math.h"
 
-using namespace std;
-
-class Perceptron {
-private:
-	double* inputs;
-	double* weights;
-	int* outputs;
-	int width;
-	int height;
-	int iteration;
-
-public:
-	Perceptron();
-	Perceptron(double* inputs, int* outputs, int height, int width);
-	~Perceptron();
-	int computeOutput(int index);
-	void startCompute();
-	double generateDouble();
-	void updateWeights(double error, int index);
-	void updateWeights(double error, double x, double y);
-	
-};
-
+double* initTraining(int, int);
+double generateDouble();
+double* startTraining(double*, int*, int, int);
+void training(double*, double*, int*, int, int);
+int computeOutput(double*, double*, int, int);
+void updateWeights(double*, double*, double, int, int);
+void freeWeights(double*);

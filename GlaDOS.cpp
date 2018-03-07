@@ -14,10 +14,14 @@ extern "C" {
 	}
 
 	_declspec(dllexport)
-		double perceptron(double* inputs, int* outputs, int height, int width) {
+		double* perceptron(double* inputs, int* outputs, int height, int width) {
 		srand(time(NULL));
-		Perceptron perceptron(inputs, outputs, height, width);
-		perceptron.startCompute();
-		return 0.0;
+		double* weights = startTraining(inputs, outputs, height, width);
+		return weights;
+	}
+
+	_declspec(dllexport)
+	void freePtr(double* weights) {
+		freeWeights(weights);
 	}
 }
