@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <windows.h>
+#include <time.h>
 #include "GlaDOSInteractions.h"
 #include "Perceptron.h"
 
@@ -12,8 +10,14 @@ extern "C" {
 	_declspec(dllexport)
 	int glaDOS() {
 		glaDOSStartTalking(1000);
-		Perceptron toto;
-		toto.startCompute();
 		return 0;
+	}
+
+	_declspec(dllexport)
+		double perceptron(double* inputs, int* outputs, int height, int width) {
+		srand(time(NULL));
+		Perceptron perceptron(inputs, outputs, height, width);
+		perceptron.startCompute();
+		return 0.0;
 	}
 }

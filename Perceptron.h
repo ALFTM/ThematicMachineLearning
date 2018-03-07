@@ -8,17 +8,21 @@ using namespace std;
 
 class Perceptron {
 private:
-	double weights[3];
-	int outputs[30];
+	double* inputs;
+	double* weights;
+	int* outputs;
+	int width;
+	int height;
 	int iteration;
 
 public:
 	Perceptron();
+	Perceptron(double* inputs, int* outputs, int height, int width);
 	~Perceptron();
-	int computeOutput(double x, double y, double z);
+	int computeOutput(int index);
 	void startCompute();
 	double generateDouble();
-	void updateWeights(double error, int inputsIndex);
+	void updateWeights(double error, int index);
 	void updateWeights(double error, double x, double y);
 	
 };
