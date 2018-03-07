@@ -23,9 +23,7 @@ double generateDouble() {
 	return num;
 }
 
-double* startTraining(double* inputs, int* outputs, int height, int width) {
-	double* weights = initTraining(height, width);
-
+double* startTraining(double* weights, double* inputs, int* outputs, int height, int width) {
 	training(weights, inputs, outputs, height, width);
 
 	return weights;
@@ -68,6 +66,16 @@ int computeOutput(double* weights, double* inputs, int width, int index) {
 
 	for (int i = 1; i < width + 1; i++) {
 		sum += (inputs[index + i - 1] * weights[i]);
+	}
+
+	return sum >= 0.0 ? 1 : -1;
+}
+
+int output(double* weights, double* inputs, int width) {
+	double sum = weights[0];
+
+	for (int i = 1; i < width + 1; i++) {
+		sum += (inputs[i - 1] * weights[i]);
 	}
 
 	return sum >= 0.0 ? 1 : -1;
