@@ -14,8 +14,8 @@ extern "C" {
 	}
 
 	_declspec(dllexport)
-	double* perceptronLinearInit(int height, int width) {
-		double* weights = initTraining(height, width);
+	double* perceptronLinearInit(int width) {
+		double* weights = initTraining(width);
 		return weights;
 	}
 

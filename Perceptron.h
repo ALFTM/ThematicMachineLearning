@@ -4,7 +4,7 @@
 #include <vector>
 #include "math.h"
 
-double* initTraining(int, int);
+double* initTraining(int);
 double generateDouble();
 double* startTraining(double*, double*, double*, int, int);
 void training(double*, double*, double*, int, int);

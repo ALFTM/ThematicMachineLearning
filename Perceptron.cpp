@@ -4,7 +4,7 @@
 
 using namespace std;
 
-double* initTraining(int height, int width) {
+double* initTraining(int width) {
 	double* weights = (double*)malloc(sizeof(double) * (width + 1));
 
 	/*for (int i = 0; i < width + 1; i++) {
