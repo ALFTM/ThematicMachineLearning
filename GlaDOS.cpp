@@ -20,7 +20,7 @@ extern "C" {
 	}
 
 	_declspec(dllexport)
-	double* perceptronLinearTraining(double* weights, double* inputs, int* outputs, int height, int width) {
+	double* perceptronLinearTraining(double* weights, double* inputs, double* outputs, int height, int width) {
 		srand(time(NULL));
 		weights = startTraining(weights, inputs, outputs, height, width);
 		return weights;

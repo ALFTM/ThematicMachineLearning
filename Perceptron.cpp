@@ -7,10 +7,14 @@ using namespace std;
 double* initTraining(int height, int width) {
 	double* weights = (double*)malloc(sizeof(double) * (width + 1));
 
-	for (int i = 0; i < width + 1; i++) {
+	/*for (int i = 0; i < width + 1; i++) {
 		weights[i] = generateDouble();
 		cout << " W : " << weights[i] << endl;
-	}
+	}*/
+
+	weights[0] = 0.5;
+	weights[1] = -2.0;
+	weights[2] = 1.0;
 
 	return weights;
 }
@@ -23,13 +27,13 @@ double generateDouble() {
 	return num;
 }
 
-double* startTraining(double* weights, double* inputs, int* outputs, int height, int width) {
+double* startTraining(double* weights, double* inputs, double* outputs, int height, int width) {
 	training(weights, inputs, outputs, height, width);
 
 	return weights;
 }
 
-void training(double* weights, double* inputs, int* outputs, int height, int width) {
+void training(double* weights, double* inputs, double* outputs, int height, int width) {
 	double globalError = 0;
 	int loop = 0;
 	int j = 0;
@@ -37,15 +41,15 @@ void training(double* weights, double* inputs, int* outputs, int height, int wid
 	do {
 		globalError = 0;
 		j = 0;
-		for (int i = 0; i < height - width; i += width) {
+		for (int i = 0; i < height * width; i += width) {
 
-			int output = 0;
+			double output = 0;
 
 			output = computeOutput(weights, inputs, width, i);
 
 			double error = outputs[j] - output;
 
-			if (error != 0) {
+			if (error != 0.0) {
 				// Update weights
 				updateWeights(weights, inputs, error, width, i);
 			}
@@ -56,19 +60,19 @@ void training(double* weights, double* inputs, int* outputs, int height, int wid
 
 		loop++;
 		cout << "Loop : " << loop << " Error : " << globalError << endl;
-	} while (globalError != 0);
+	} while (globalError != 0 && loop < 100000);
 
 	cout << "DONE!" << endl;
 }
 
-int computeOutput(double* weights, double* inputs, int width, int index) {
+double computeOutput(double* weights, double* inputs, int width, int index) {
 	double sum = weights[0]; 
 
 	for (int i = 1; i < width + 1; i++) {
 		sum += (inputs[index + i - 1] * weights[i]);
 	}
 
-	return sum >= 0.0 ? 1 : -1;
+	return sum >= 0.0 ? 1.0 : -1.0;
 }
 
 int output(double* weights, double* inputs, int width) {
