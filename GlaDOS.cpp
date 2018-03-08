@@ -36,4 +36,16 @@ extern "C" {
 	void freePtr(double* weights) {
 		freeWeights(weights);
 	}
+
+	_declspec(dllexport)
+	double* perceptronLinearRegressionTrain(double* inputsX, double* inputsY, int sizeInputs) {
+		double* equation = linearRegressionTrain(inputsX, inputsY, sizeInputs);
+		return equation;
+	}
+
+	_declspec(dllexport)
+	int perceptronLinearRegressionPredict(double* equation, double x, double y) {
+		int angle = linearRegressionPredict(equation, x, y);
+		return angle;
+	}
 }

@@ -97,3 +97,43 @@ void freeWeights(double* weights) {
 	if (NULL != weights)
 		free(weights);
 }
+
+double* linearRegressionTrain(double* inputsX, double* inputsY, int sizeInputs) {
+	double avgX = sumInputs(inputsX, sizeInputs);
+	double avgY = sumInputs(inputsY, sizeInputs);
+
+	double sum_pow_XSubstractAvgX = 0.0;
+	for (int i = 0; i < sizeInputs; i++) {
+		sum_pow_XSubstractAvgX += (inputsX[i] - avgX) * (inputsX[i] - avgX);
+	}
+
+	double sum_XSubstractAvgX_YSubstractAvgY = 0.0;
+	for (int i = 0; i < sizeInputs; i++) {
+		sum_XSubstractAvgX_YSubstractAvgY += (inputsX[i] - avgX) * (inputsY[i] - avgY);
+	}
+
+	double a = sum_XSubstractAvgX_YSubstractAvgY / sum_pow_XSubstractAvgX;
+
+	double b = avgY - (a * avgX);
+
+	return new double[2]{ a, b };
+}
+
+int linearRegressionPredict(double* equation, double x, double y) {
+	double a = equation[0];
+	double b = equation[1];
+	
+	double yPredicted = (a * x) + b;
+
+	return yPredicted >= y ? -1 : 1;
+}
+
+double sumInputs(double* inputs, int size) {
+	double sum = 0.0;
+	
+	for (int i = 0; i < size; i++) {
+		sum += inputs[i];
+	}
+
+	return sum / size;
+}
