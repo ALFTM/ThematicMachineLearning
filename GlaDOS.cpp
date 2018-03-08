@@ -38,14 +38,18 @@ extern "C" {
 	}
 
 	_declspec(dllexport)
-	double* perceptronLinearRegressionTrain(double* inputsX, double* inputsY, int sizeInputs) {
-		double* equation = linearRegressionTrain(inputsX, inputsY, sizeInputs);
-		return equation;
+	void perceptronLinearRegressionTrain(double* weights, double* inputs, int width, int inputsLength, double* outputs, int outputsLength) {
+		linearRegressionTrain(weights, inputs, width, inputsLength, outputs, outputsLength);
 	}
 
 	_declspec(dllexport)
-	int perceptronLinearRegressionPredict(double* equation, double x, double y) {
-		int angle = linearRegressionPredict(equation, x, y);
-		return angle;
+	double perceptronLinearRegressionPredict(double* weights, double* inputs) {
+		return linearRegressionPredict(weights, inputs);
+	}
+
+	_declspec(dllexport)
+	double* perceptronLinearRegressionCreate(int width) {
+		double* weight = linearRegressionCreate(width);
+		return weight;
 	}
 }

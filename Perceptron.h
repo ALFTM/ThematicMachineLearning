@@ -13,6 +13,6 @@ int output(double*, double*, int);
 void updateWeights(double*, double*, double, int, int);
 void freeWeights(double*);
 
-double* linearRegressionTrain(double*, double*, int);
-int linearRegressionPredict(double*, double, double);
-double sumInputs(double*, int);
+double* linearRegressionCreate(int);
+void linearRegressionTrain(double*, double*, int, int, double*, int);
+double linearRegressionPredict(double*, double*);

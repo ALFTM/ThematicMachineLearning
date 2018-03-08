@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <cmath>
 #include "Perceptron.h"
+#include "Eigen/Eigen/Dense"
 
 using namespace std;
 
@@ -12,9 +13,9 @@ double* initTraining(int width) {
 		cout << " W : " << weights[i] << endl;
 	}*/
 
-	weights[0] = 0.5;
-	weights[1] = -2.0;
-	weights[2] = 1.0;
+	weights[0] = 0.0;
+	weights[1] = 1.0;
+	weights[2] = 2.0;
 
 	return weights;
 }
@@ -98,42 +99,41 @@ void freeWeights(double* weights) {
 		free(weights);
 }
 
-double* linearRegressionTrain(double* inputsX, double* inputsY, int sizeInputs) {
-	double avgX = sumInputs(inputsX, sizeInputs);
-	double avgY = sumInputs(inputsY, sizeInputs);
+double* linearRegressionCreate(int width) {
+	double* weights = (double*)malloc(sizeof(double) * (width + 1));
 
-	double sum_pow_XSubstractAvgX = 0.0;
-	for (int i = 0; i < sizeInputs; i++) {
-		sum_pow_XSubstractAvgX += (inputsX[i] - avgX) * (inputsX[i] - avgX);
+	for (int i = 0; i < width + 1; i++) {
+		weights[i] = 0.0;
 	}
 
-	double sum_XSubstractAvgX_YSubstractAvgY = 0.0;
-	for (int i = 0; i < sizeInputs; i++) {
-		sum_XSubstractAvgX_YSubstractAvgY += (inputsX[i] - avgX) * (inputsY[i] - avgY);
-	}
-
-	double a = sum_XSubstractAvgX_YSubstractAvgY / sum_pow_XSubstractAvgX;
-
-	double b = avgY - (a * avgX);
-
-	return new double[2]{ a, b };
+	return weights;
 }
 
-int linearRegressionPredict(double* equation, double x, double y) {
-	double a = equation[0];
-	double b = equation[1];
-	
-	double yPredicted = (a * x) + b;
+void linearRegressionTrain(double* weights, double* inputs, int width, int inputsLength, double* outputs, int outputsLength) {
+	int wSize = width + 1;
 
-	return yPredicted >= y ? -1 : 1;
-}
+	Eigen::MatrixXd xMatrix(inputsLength / width, width + 1);
 
-double sumInputs(double* inputs, int size) {
-	double sum = 0.0;
-	
-	for (int i = 0; i < size; i++) {
-		sum += inputs[i];
+	for (int i = 0; i < inputsLength / width; i++) {
+		xMatrix(i, 0) = 1;
+		for (int j = 0; j < width; j++) {
+			xMatrix(i, j + 1) = inputs[i * width + j];
+		}
 	}
 
-	return sum / size;
+	Eigen::MatrixXd yMatrix(outputsLength, 1);
+	for (int i = 0; i < outputsLength; i++) {
+		yMatrix(i, 0) = outputs[i];
+	}
+
+	Eigen::MatrixXd xTransposed = xMatrix.transpose();
+	Eigen::MatrixXd wMatrix = ((xTransposed * xMatrix).inverse() * xTransposed) * yMatrix;
+
+	for (int i = 0; i < wSize; i++) {
+		weights[i] = wMatrix(i, 0);
+	}
+}
+
+double linearRegressionPredict(double* weight, double* inputs) {
+	return weight[0] + (weight[1] * inputs[0]) + (weight[2] * inputs[1]);
 }
