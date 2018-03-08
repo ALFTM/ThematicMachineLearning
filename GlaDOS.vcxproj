@@ -117,10 +117,10 @@
   <ItemGroup>
     <ClCompile Include="Perceptron.cpp" />
     <ClCompile Include="GlaDOS.cpp" />
-    <ClCompile Include="GlaDOSInteractions.cpp" />
+    <ClCompile Include="RBF.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GlaDOSInteractions.h" />
+    <ClInclude Include="RBF.h" />
     <ClInclude Include="Perceptron.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

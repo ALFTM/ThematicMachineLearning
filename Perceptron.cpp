@@ -21,11 +21,12 @@ double* initTraining(int width) {
 }
 
 double generateDouble() {
-	double high = 0.99;
-	double low = -0.99;
-	double range = (high - low);
-	double num = fmod(rand(), range) + low;
-	return num;
+	double high = 2.0;
+	double low = -1.0;
+
+	double f = (double)rand() / RAND_MAX;
+	f = low + f * high;
+	return f;
 }
 
 double* startTraining(double* weights, double* inputs, double* outputs, int height, int width) {

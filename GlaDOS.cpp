@@ -1,18 +1,13 @@
 #include <time.h>
 #include "GlaDOSInteractions.h"
 #include "Perceptron.h"
+#include "RBF.h"
 
 /*
 Start point to enter
 */
 
 extern "C" {
-	_declspec(dllexport)
-	int glaDOS() {
-		glaDOSStartTalking(1000);
-		return 0;
-	}
-
 	_declspec(dllexport)
 	double* perceptronLinearInit(int width) {
 		double* weights = initTraining(width);
@@ -51,5 +46,21 @@ extern "C" {
 	double* perceptronLinearRegressionCreate(int width) {
 		double* weight = linearRegressionCreate(width);
 		return weight;
+	}
+
+	_declspec(dllexport)
+	double* rbfNaiveClassicCreate(int nbSamples) {
+		double* weight = initCreateRbf(nbSamples);
+		return weight;
+	}
+
+	_declspec(dllexport)
+	void rbfNaiveClassicTraining(double* weights, double* inputs, double* output, int nbSamples, int width, double gamma) {
+		rbfClassicTraining(weights, inputs, output, nbSamples, width, gamma);
+	}
+
+	_declspec(dllexport)
+	double rbfNaiveClassicClassify(double* weights, double* inputs, double* testInput, int nbSamples, int width, double gamma) {
+		return rbfClassicClassify(weights, inputs, testInput, nbSamples, width, gamma);
 	}
 }
