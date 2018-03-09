@@ -1,3 +1,4 @@
+#pragma warning(disable:4996)
 #include "RBF.h"
 
 double* initCreateRbf(int nbSamples) {
@@ -51,8 +52,8 @@ void rbfClassicTraining(double* weights, double* inputs, double* output, int nbS
 
 
 
-	//Eigen::MatrixXd wMatrix = xMatrix.completeOrthogonalDecomposition().pseudoInverse();
-	Eigen::MatrixXd wMatrix = xMatrix.inverse() * yMatrix;
+	Eigen::MatrixXd wMatrix = xMatrix.completeOrthogonalDecomposition().pseudoInverse() * yMatrix;
+	/*Eigen::MatrixXd wMatrix = xMatrix.inverse() * yMatrix;*/
 
 	for (int i = 0; i < inputsSize; i++)
 	{
