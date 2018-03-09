@@ -63,4 +63,9 @@ extern "C" {
 	double rbfNaiveClassicClassify(double* weights, double* inputs, double* testInput, int nbSamples, int width, double gamma) {
 		return rbfClassicClassify(weights, inputs, testInput, nbSamples, width, gamma);
 	}
+
+	_declspec(dllexport)
+	double rbfNaiveClassicPredict(double* weights, double* inputs, double* testInput, int nbSamples, int width, double gamma) {
+		return rbfClassicPredict(weights, inputs, testInput, nbSamples, width, gamma);
+	}
 }

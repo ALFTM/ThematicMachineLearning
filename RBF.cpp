@@ -50,8 +50,6 @@ void rbfClassicTraining(double* weights, double* inputs, double* output, int nbS
 		std::cout << yMatrix(i, 0) << std::endl;
 	}
 
-
-
 	Eigen::MatrixXd wMatrix = xMatrix.completeOrthogonalDecomposition().pseudoInverse() * yMatrix;
 	/*Eigen::MatrixXd wMatrix = xMatrix.inverse() * yMatrix;*/
 
@@ -80,4 +78,20 @@ double rbfClassicClassify(double* weights, double* inputs, double* testInput, in
 	}
 
 	return sumOutput >= 0.0 ? 1.0 : -1.0;
+}
+
+double rbfClassicPredict(double* weights, double* inputs, double* testInput, int nbSamples, int width, double gamma) {
+	int inputSize = nbSamples / width;
+
+	double sumOutput = 0.0;
+
+	for (int i = 0; i < inputSize; i++)
+	{
+		double inputsPowX = pow(inputs[i * width] - testInput[0], 2);
+		double inputsPowY = pow(inputs[(i * width) + 1] - testInput[1], 2);
+		double compute = -gamma * (inputsPowX + inputsPowY);
+		sumOutput += weights[i] * exp(compute);
+	}
+
+	return sumOutput;
 }

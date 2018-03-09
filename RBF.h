@@ -9,3 +9,4 @@
 double* initCreateRbf(int);
 void rbfClassicTraining(double*, double*, double*, int, int, double);
 double rbfClassicClassify(double*, double*, double*, int, int, double);
+double rbfClassicPredict(double*, double*, double*, int, int, double);
