@@ -14,17 +14,27 @@ double* initCreateRbf(int nbSamples) {
 void rbfClassicTraining(double* weights, double* inputs, double* output, int nbSamples, int width, double gamma) {
 	int inputsSize = nbSamples / width;
 
-	Eigen::MatrixXd xMatrix(inputsSize, inputsSize);
 
+	Eigen::MatrixXd xMatrix(inputsSize, inputsSize);
 	for (int i = 0; i < inputsSize; i++)
 	{
 		for (int j = 0; j < inputsSize; j++)
 		{
 			double inputsPowX = pow(inputs[j * width] - inputs[i * width], 2);
-			double inputsPowY = pow(inputs[j * (width + 1)] - inputs[i * (width + 1)], 2);
+			double inputsPowY = pow(inputs[(j * width) + 1] - inputs[(i * width) + 1], 2);
 			double compute = -gamma * (inputsPowX + inputsPowY);
 			xMatrix(i, j) = exp(compute);
 		}
+	}
+
+	for (int i = 0; i < inputsSize; i++)
+	{
+		for (int j = 0; j < inputsSize; j++)
+		{
+			std::cout << xMatrix(i, j) << " ";
+		}
+
+		std::cout << std::endl;
 	}
 
 	Eigen::MatrixXd yMatrix(inputsSize, 1);
@@ -34,11 +44,24 @@ void rbfClassicTraining(double* weights, double* inputs, double* output, int nbS
 		yMatrix(i, 0) = output[i];
 	}
 
+	for (int i = 0; i < inputsSize; i++)
+	{
+		std::cout << yMatrix(i, 0) << std::endl;
+	}
+
+
+
+	//Eigen::MatrixXd wMatrix = xMatrix.completeOrthogonalDecomposition().pseudoInverse();
 	Eigen::MatrixXd wMatrix = xMatrix.inverse() * yMatrix;
 
 	for (int i = 0; i < inputsSize; i++)
 	{
 		weights[i] = wMatrix(i, 0);
+	}
+
+	for (int i = 0; i < inputsSize; i++)
+	{
+		std::cout << weights[i] << std::endl;
 	}
 }
 
@@ -50,7 +73,7 @@ double rbfClassicClassify(double* weights, double* inputs, double* testInput, in
 	for (int i = 0; i < inputSize; i++)
 	{
 		double inputsPowX = pow(inputs[i * width] - testInput[0], 2);
-		double inputsPowY = pow(inputs[i * (width + 1)] - testInput[1], 2);
+		double inputsPowY = pow(inputs[(i * width) + 1] - testInput[1], 2);
 		double compute = -gamma * (inputsPowX + inputsPowY);
 		sumOutput += weights[i] * exp(compute);
 	}
